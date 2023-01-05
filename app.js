@@ -61,6 +61,11 @@ app.delete('/campgrounds/:id', async (req, res) => {
   res.redirect('/campgrounds')
 })
 
+// 404 at the end of the file if routes are not found
+app.use((req, res) => {
+  res.status(404).send('Not Found')
+})
+
 app.listen(3000, () => {
   console.log('Listening on Port 3000!')
 })

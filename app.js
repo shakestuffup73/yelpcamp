@@ -63,9 +63,10 @@ app.delete('/campgrounds/:id', async (req, res) => {
   res.redirect('/campgrounds')
 })
 
-// 404 at the end of the file if routes are not found
-app.use((req, res) => {
-  res.status(404).send('Not Found')
+// 404 & other handling middleware at the end of the file if routes are not found
+app.use((error, req, res, next) => {
+  res.status(404).send('Errrrrrrorrrrr')
+  next(error)
 })
 
 app.listen(3000, () => {

@@ -34,7 +34,6 @@ const validateCampground = (req, res, next) => {
   } else {
     next()
   }
-  console.log(msg, 400)
 }
 
 app.get('/', (req, res) => {
@@ -55,7 +54,6 @@ app.post('/campgrounds', validateCampground, catchAsync(async (req, res, next) =
   const campground = new Campground(req.body.campground)
   await campground.save()
   res.redirect(`/campgrounds/${campground._id}`)
-  next()
 }))
 
 app.get('/campgrounds/:id', catchAsync(async (req, res) => {

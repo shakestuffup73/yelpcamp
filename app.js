@@ -14,12 +14,10 @@ const userRoutes = require('./routes/users')
 const campgroundRoutes = require('./routes/campgrounds')
 const reviewRoutes = require('./routes/reviews')
 
-mongoose.connect('mongodb://localhost:27017/yelpcamp')
-
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', () => {
-  console.log('Database Connected')
+    console.log('Database Connected')
 })
 
 const app = express()
@@ -43,14 +41,21 @@ const sessionConfig = {
   resave: false,
   saveUninitialized: true,
   cookie: {
-    httpOnly: true,
-    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-    maxAge: 1000 * 60 * 60 * 24 * 7
+      httpOnly: true,
+      expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+      maxAge: 1000 * 60 * 60 * 24 * 7
+    }
   }
-}
-app.use(session(sessionConfig))
-app.use(flash())
+app.use(session(sessionConfig));
+app.use(flash());
 
+app.use(passport.initialize())
+app.use(passport.session())
+passport.use(new LocalStrategy(User.authenticate()))
+
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
+    
 app.use((req, res, next) => {
   console.log(req.session)
   res.locals.currentUser = req.user
@@ -65,7 +70,7 @@ app.use('/campgrounds', campgroundRoutes)
 app.use('/campgrounds/:id/reviews', reviewRoutes)
 
 app.get('/', (req, res) => {
-  res.render('home')
+res.render('home')
 })
 
 app.all('*', (req, res, next) => {
@@ -82,5 +87,3 @@ app.use((error, req, res, next) => {
 app.listen(3000, () => {
   console.log('Listening on Port 3000!')
 })
-
-

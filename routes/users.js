@@ -11,7 +11,7 @@ router.post('/register', async(req, res) => {
   try {
     const { email, username, password } = req.body
     const user = new User({email, username})
-    const registeredUser = User.register(user, password)
+    const registeredUser = await User.register(user, password)
     console.log(registeredUser)
     req.flash('success', 'Welcome to Yelp Camp!')
     res.redirect('/campgrounds')
@@ -27,6 +27,12 @@ router.get('/login', (req, res) => {
 
 router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login'}), (req, res) => {
   req.flash('success', 'welcome back')
+  res.redirect('/campgrounds')
+})
+
+router.get('/logout', (req, res) => {
+  req.logout()
+  req.flash('success', 'Goodbye!')
   res.redirect('/campgrounds')
 })
 

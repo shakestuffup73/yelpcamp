@@ -25,7 +25,7 @@ router.post('/', isLoggedIn, validateCampground, catchAsync(async (req, res, nex
     res.redirect(`/campgrounds/${campground._id}`)
 }))
 
-router.get('/:id', isLoggedIn, catchAsync(async (req, res,) => {
+router.get('/:id', catchAsync(async (req, res,) => {
     const campground = await Campground.findById(req.params.id).populate({
         path: 'reviews',
         populate: {

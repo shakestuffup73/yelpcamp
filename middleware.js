@@ -1,12 +1,13 @@
 const { campgroundSchema, reviewSchema } = require('./schemas.js');
 const ExpressError = require('./utils/ExpressError')
+const Review = require('./models/review')
 const Campground = require('./models/campground')
 
 module.exports.isLoggedIn = (req, res, next) => {
-  console.log('This is req.user:', req.user)
+  // console.log('This is req.user:', req.user)
   if (!req.isAuthenticated()) {
     // store the url requesting, redirect back to login
-    console.log('this is req.originalUrl:', req.originalUrl)
+    // console.log('this is req.originalUrl:', req.originalUrl)
     req.session.returnTo = req.originalUrl
     req.flash('error', 'You must be signed in first.')
     return res.redirect('/login')
@@ -15,6 +16,7 @@ module.exports.isLoggedIn = (req, res, next) => {
 }
 
 module.exports.validateCampground = (req, res, next) => {
+  console.log('this is campgroundSchema', campgroundSchema)
   const { error } = campgroundSchema.validate(req.body);
   if (error) {
       const msg = error.details.map(el => el.message).join(',')

@@ -32,8 +32,10 @@ router.post('/login', passport.authenticate('local', { failureFlash: true, failu
   req.flash('success', 'welcome back')
   // if there's a redirectURL, it will go to that, if not, it will default to redirecting to '/campgrounds'
   const redirectURL = req.session.returnTo || '/campgrounds'
-  delete req.session.returnTo
+  console.log('this is redirectURL', redirectURL)
+  console.log('this is req.session.returnTo', req.session.returnTo)
   res.redirect(redirectURL)
+  delete req.session.returnTo
 })
 
 router.get('/logout', (req, res) => {

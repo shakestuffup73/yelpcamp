@@ -3,6 +3,7 @@ const router = express.Router()
 const passport = require('passport')
 const User = require('../models/user')
 const users = require('../controllers/users')
+const catchAsync = require('../utils/catchAsync')
 
 router.route('/register')
   .get('/register', users.renderRegister)

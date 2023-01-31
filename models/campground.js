@@ -43,7 +43,8 @@ const CampgroundSchema = new Schema({
 }, opts)
 
 CampgroundSchema.virtual('properties.popUpMarkup').get(function () {
-  return `<a href="/campgrounds/${this._id}">${this.title}</a>`
+  return `<strong><a href="/campgrounds/${this._id}">${this.title}</a></strong>
+  <img src="${this.images[0].thumbnail}" width="50">`
 })
 
 CampgroundSchema.post('findOneAndDelete', async function(doc) {

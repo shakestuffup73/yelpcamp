@@ -31,16 +31,6 @@ mongoose.connect(dbURL)
 // Local Database Connection
 //'mongodb://localhost:27017/yelpcamp'
 
-main().catch((err) => console.log(err));
-async function main() {
-	mongoose.connect(dbURL);
-	console.log("Connection open!");
-	// Starting up app on desired port
-	app.listen(PORT, () => {
-		console.log(`Listening on http://localhost:${PORT}`);
-	});
-}
-
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', () => {
@@ -150,3 +140,13 @@ app.use((error, req, res, next) => {
   if (!error.message) error.message = 'Oh no, something went wrong!'
   res.status(statusCode).render('error', { error })
 })
+
+main().catch((err) => console.log(err));
+async function main() {
+	mongoose.connect(dbURL);
+	console.log("Connection open!");
+	// Starting up app on desired port
+	app.listen(PORT, () => {
+		console.log(`Listening on http://localhost:${PORT}`);
+	});
+}

@@ -21,9 +21,13 @@ const mongoSanitize = require('express-mongo-sanitize')
 const helmet = require('helmet')
 const { scriptSrcUrls, styleSrcUrls, connectSrcUrls, fontSrcUrls } = require("./utils/helmetConfig");
 
-mongoose.connect('mongodb://localhost:27017/yelpcamp', {
+const dbURL = process.env.DATABASE_URL
 
-})
+// MongoDB Atlas Database Connection
+mongoose.connect(dbURL)
+
+// Local Database Connection
+//'mongodb://localhost:27017/yelpcamp'
 
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'))

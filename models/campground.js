@@ -50,7 +50,7 @@ CampgroundSchema.virtual('properties.popUpMarkup').get(function () {
     miniImage = "https://res.cloudinary.com/dgwexf22j/image/upload/w_50/v1675265787/YelpCamp/Not_All_Who_Wander_jl5qql.jpg"
   }
   return `<div style="text-align:center;"><strong><a href="/campgrounds/${this._id}">${this.title}</a></strong></br>
-  <img src="${this.images[0].thumbnail}" width="70"><div>`
+  <img src="${miniImage}" width="70"><div>`
 })
 
 CampgroundSchema.post('findOneAndDelete', async function(doc) {

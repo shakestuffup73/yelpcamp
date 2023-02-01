@@ -20,6 +20,7 @@ const reviewRoutes = require('./routes/reviews')
 const mongoSanitize = require('express-mongo-sanitize')
 const helmet = require('helmet')
 const { scriptSrcUrls, styleSrcUrls, connectSrcUrls, fontSrcUrls } = require("./utils/helmetConfig");
+const MongoStore = require('connect-mongo')
 
 const dbURL = process.env.DATABASE_URL
 
@@ -48,9 +49,22 @@ app.use(mongoSanitize({
   replaceWith: '_'
 }))
 
+const secret = process.env.SECRET || 'thisshouldbeabettersecret!'
+
+const store = MongoStore.create({
+  mongoUrl: dbURL,
+  secret,
+  touchAfter: 24 * 60 * 60
+})
+
+store.on('error', function(err) {
+  console.log('Session store error!', err)
+})
+
 const sessionConfig = {
+  store,
   name: 'session',
-  secret: 'thisshouldbeabettersecret',
+  secret,
   resave: false,
   saveUninitialized: true,
   cookie: {

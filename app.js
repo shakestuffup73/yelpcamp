@@ -21,6 +21,7 @@ const mongoSanitize = require('express-mongo-sanitize')
 const helmet = require('helmet')
 const { scriptSrcUrls, styleSrcUrls, connectSrcUrls, fontSrcUrls } = require("./utils/helmetConfig");
 const MongoStore = require('connect-mongo')
+const PORT = process.env.PORT || 3000
 
 const dbURL = process.env.DATABASE_URL
 
@@ -140,6 +141,6 @@ app.use((error, req, res, next) => {
   res.status(statusCode).render('error', { error })
 })
 
-app.listen(3000, () => {
-  console.log('Listening on Port 3000!')
+app.listen(PORT, () => {
+  console.log(`Listening on Port ${ PORT }!`)
 })

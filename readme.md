@@ -9,7 +9,7 @@ Yelp Camp is a MEN-Stack full CRUD application to find and review campgrounds. T
 <br>
 LINK TO APP HERE:
 <br>
-<a href="https://yelpcampgrounds.herokuapp.com/">Yelp Camp</a>
+<a href="https://yelpcampgrounds.herokuapp.com/">YELP CAMP</a>
 <br>
 <br>
 

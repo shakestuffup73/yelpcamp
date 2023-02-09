@@ -1,3 +1,4 @@
+
 <% layout('layouts/boilerplate') %>
 
   <div class="row">
@@ -14,6 +15,16 @@
         <div class="mb-3">
           <label class="form-label" for="location">Location</label>
           <input class="form-control" type="text" id="location" name="campground[location]" required>
+          <div class="valid-feedback">Looks Good!</div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="state">Select State</label>
+          <select name="campground[state]" id="state" required>
+            <%  for (state in usStates) { %>
+              <option value="<%= usStates[state] %>"><%= usStates[state] %></option>
+            <% } %>
+          </select>
           <div class="valid-feedback">Looks Good!</div>
         </div>
 

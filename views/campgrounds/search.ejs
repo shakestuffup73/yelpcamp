@@ -1,5 +1,7 @@
 <% layout('layouts/boilerplate') %>
 
+<div id="cluster-map"></div>
+
 <div class="row">
   <% if(foundCampgrounds.length > 0) { %>
       <p>Showing <strong><%= foundCampgrounds.length %></strong> result(s) for <%= search %>:</p>
@@ -29,3 +31,9 @@
     <p>There are no campgrounds with that title.</p>
   <% } %>
 </div>
+
+<script>
+  const mapToken = '<%-process.env.MAPBOX_TOKEN%>'
+  const campgrounds = {features: <%- JSON.stringify(foundCampgrounds) %>}
+</script>
+<script src="/javascripts/clusterMap.js"></script>

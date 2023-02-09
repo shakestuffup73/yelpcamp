@@ -1,9 +1,15 @@
+if (process.env.NODE_ENV !== 'production'){
+  require('dotenv').config()
+}
+
 const mongoose = require('mongoose')
 const cities = require('./cities')
 const { places, descriptors } = require('./seedHelpers')
 const Campground = require('../models/campground')
+const PORT = process.env.PORT || 3000
+const dbURL = process.env.DATABASE_URL
 
-mongoose.connect('mongodb://localhost:27017/yelpcamp')
+mongoose.connect(dbURL)
 
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'))
@@ -15,13 +21,14 @@ const sample = array => array[Math.floor(Math.random() * array.length)]
 
 const seedDB = async () => {
   await Campground.deleteMany({})
-  for (let i = 0; i < 350; i++){
+  for (let i = 0; i < 75; i++){
     const random1000 = Math.floor(Math.random() * 1000)
     const price = Math.floor(Math.random() * 50) + 5
     const camp = new Campground({
       // YOUR USER ID
       author: '63d2b28f230b7269cb0921bb',
       location: `${cities[random1000].city}, ${cities[random1000].state}`,
+      state: `${cities[random1000].state}`,
       title: `${sample(descriptors)} ${sample(places)}`,
       images: [
         {

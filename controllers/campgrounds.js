@@ -69,7 +69,7 @@ module.exports.renderEditForm = async (req, res) => {
 module.exports.searchCampgrounds = async (req, res) => {
   console.log('this is req.body.search in searchCampground controller', req.body.search)
   search = req.body.search
-  foundCampgrounds = await Campground.find({"title": `${search}`})
+  foundCampgrounds = await Campground.find({"state": `${search}`})
   console.log('this is foundCampgrounds:', foundCampgrounds)
   if (foundCampgrounds.length > 0) {
     return res.render("campgrounds/search", {foundCampgrounds, search})

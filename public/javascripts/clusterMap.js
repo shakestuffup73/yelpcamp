@@ -1,3 +1,4 @@
+
 mapboxgl.accessToken = mapToken
 
 const map = new mapboxgl.Map({
@@ -120,8 +121,5 @@ map.on("load", () => {
   map.on("mouseleave", "clusters", () => {
     map.getCanvas().style.cursor = "";
   });
-
-
-
 
 });

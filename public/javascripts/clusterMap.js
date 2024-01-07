@@ -121,5 +121,4 @@ map.on("load", () => {
   map.on("mouseleave", "clusters", () => {
     map.getCanvas().style.cursor = "";
   });
-
 });
